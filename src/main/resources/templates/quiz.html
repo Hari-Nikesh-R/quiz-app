@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz</title>
+</head>
+<body>
+<h1>Quiz on [[${quiz.title}]]</h1>
+
+<form action="/submitQuiz" method="post">
+    <input type="hidden" name="quizId" th:value="${quiz.id}">
+
+    <div th:each="question : ${questions}">
+        <h3 th:text="${question.questionText}">Question Text</h3>
+
+        <div>
+            <input type="radio" th:name="question-[[${question.id}]]" th:value="A" id="q[[${question.id}]]-A">
+            <label th:for="q[[${question.id}]]-A" th:text="${question.optionA}">Option A</label>
+        </div>
+        <div>
+            <input type="radio" th:name="question-[[${question.id}]]" th:value="B" id="q[[${question.id}]]-B">
+            <label th:for="q[[${question.id}]]-B" th:text="${question.optionB}">Option B</label>
+        </div>
+        <div>
+            <input type="radio" th:name="question-[[${question.id}]]" th:value="C" id="q[[${question.id}]]-C">
+            <label th:for="q[[${question.id}]]-C" th:text="${question.optionC}">Option C</label>
+        </div>
+        <div>
+            <input type="radio" th:name="question-[[${question.id}]]" th:value="D" id="q[[${question.id}]]-D">
+            <label th:for="q[[${question.id}]]-D" th:text="${question.optionD}">Option D</label>
+        </div>
+    </div>
+
+    <button type="submit">Submit Quiz</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+
+<h2>Create a New Quiz</h2>
+<form action="/admin/createQuiz" method="post">
+    <input type="text" name="title" placeholder="Quiz Title" required>
+    <input type="text" name="subject" placeholder="Subject" required>
+    <input type="number" name="totalMarks" placeholder="Total Marks" required>
+    <button type="submit">Create Quiz</button>
+</form>
+
+<h2>Manage Quizzes</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Total Marks</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody th:each="quiz : ${quizzes}">
+    <tr>
+        <td th:text="${quiz.title}">Quiz Title</td>
+        <td th:text="${quiz.subject}">Quiz Subject</td>
+        <td th:text="${quiz.totalMarks}">Total Marks</td>
+        <td>
+            <a th:href="@{/admin/editQuiz/{id}(id=${quiz.id})}">Edit</a>
+            <a th:href="@{/admin/deleteQuiz/{id}(id=${quiz.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Add Questions to Quiz</h2>
+<form action="/admin/addQuestion" method="post">
+    <select name="quizId">
+        <option th:each="quiz : ${quizzes}" th:value="${quiz.id}" th:text="${quiz.title}">Quiz Title</option>
+    </select>
+    <input type="text" name="questionText" placeholder="Question" required>
+    <input type="text" name="optionA" placeholder="Option A" required>
+    <input type="text" name="optionB" placeholder="Option B" required>
+    <input type="text" name="optionC" placeholder="Option C" required>
+    <input type="text" name="optionD" placeholder="Option D" required>
+    <input type="text" name="correctAnswer" placeholder="Correct Answer" required>
+    <button type="submit">Add Question</button>
+</form>
+</body>
+</html>

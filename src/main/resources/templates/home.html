@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<h1>Welcome, [[${user.name}]]</h1>
+
+<p th:if="${user.role == 'USER'}">You can <a href="/quiz">Start a Quiz</a>.</p>
+<p th:if="${user.role == 'ADMIN'}">Go to <a href="/admin">Admin Dashboard</a> to manage quizzes.</p>
+
+<a href="/logout">Logout</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Result</title>
+</head>
+<body>
+<h1>Quiz Result</h1>
+
+<p>Quiz Title: <strong th:text="${quiz.title}">Quiz Title</strong></p>
+<p>Total Marks: <strong th:text="${quiz.totalMarks}">Total Marks</strong></p>
+<p>Your Score: <strong th:text="${result.score}">Score</strong></p>
+
+<a href="/quiz">Back to Quizzes</a>
+</body>
+</html>

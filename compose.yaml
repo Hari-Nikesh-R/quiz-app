@@ -1,0 +1,41 @@
+services:
+  mysql-db:
+    image: 'mysql:latest'
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: quiz
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - quiz-network
+
+  java-app:
+    image: openjdk:21-jdk
+    container_name: quiz-java-app
+    depends_on:
+      - mysql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/quizdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    volumes:
+      - ./Users/harinikesh/Downloads/Project/personal-projects/quiz-app/quiz-app:/usr/src/app
+    working_dir: /usr/src/app
+    command: mvn spring-boot:run
+    ports:
+      - "8080:8080"
+    networks:
+      - quiz-network
+
+volumes:
+  mysql-data:
+
+networks:
+  quiz-network:
+    driver: bridge
